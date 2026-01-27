@@ -9,33 +9,90 @@ body{
   font-style: normal;
   font-size: 15px;
 }
+
 .heroSection{
   width: 100%;
   min-height: 100vh;
   background-color: rgb(175 77 77);
   padding: 10px;
 }
-#timerLogo{
-  color: white;
-  font-size: 20px;
-}
+
 .customHeader{
-  width: 50%;
-  height: 45px;
+  width: 550px;
+  height: 50px;
   margin: auto;
   display: flex;
   gap: 5px;
   justify-content: center;
   align-items: center;
 }
-.customHeader h2{
-  color: white;
+.customHeader img{
+  height: 45px;
 }
 .clock{
-  width: 50%;
+  width: 550px;
   min-height: 400px;
   margin: auto;
   padding: 10px;
-  border-top: 1px solid white;
-
+  background-color: rgba(255, 255, 255, 0.1);
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  gap: 15px;
+}
+.timerType{
+  width: 60%;
+  display: flex;
+  justify-content: space-around;
+}
+.timerType button{
+  padding: 5px;
+  background-color: #f6dbd4;
+  color: rgb(175 77 77);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 15px;
+}
+.actualTimer{
+  height: 280px;
+  width: 280px;
+  border-radius: 50%;
+  border: 2px solid #f6dbd4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  color: #f6dbd4;
+}
+.actualTimer h3{
+  font-size: 55px;
+}
+.TimeProgress{
+  width: 550px;
+  height: 1px;
+  background-color: #0000002e;
+  margin: auto;
+  margin-bottom: 20px;
+}
+.timerStateButton{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.timerStateButton button{
+  padding: 10px;
+  font-size: 20px;
+  background-color: #f6dbd4;
+  color: rgb(175 77 77);
+  border: none;
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  cursor: pointer;
 }
