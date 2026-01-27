@@ -87,7 +87,6 @@ body{
 }
 .timerStateButton button{
   padding: 10px;
-  font-size: 20px;
   background-color: #f6dbd4;
   color: rgb(175 77 77);
   border: none;
@@ -95,4 +94,8 @@ body{
   height: 50px;
   border-radius: 10px;
   cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 20px;
 }
