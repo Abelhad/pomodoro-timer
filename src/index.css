@@ -35,7 +35,8 @@ body{
   margin: auto;
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.1);
-  padding-top: 40px;
+  padding-top: 25px;
+  padding-bottom: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -60,8 +61,8 @@ body{
   font-size: 15px;
 }
 .actualTimer{
-  height: 280px;
-  width: 280px;
+  height: 250px;
+  width: 250px;
   border-radius: 50%;
   border: 2px solid #f6dbd4;
   display: flex;
@@ -98,4 +99,49 @@ body{
   font-weight: 600;
   font-style: normal;
   font-size: 20px;
+}
+.currentTask{
+  width: 550px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #f6dbd4;
+  margin: auto;
+}
+.titlesHeader{
+  width: 550px;
+  height: 60px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #f6dbd4;
+  border-bottom: 3px solid #f6dbd4;
+  margin-bottom: 10px;
+}
+.titlesHeader h3{
+  font-size: 18px;
+}
+.titlesHeader i{
+  font-size: 18px;
+  cursor: pointer;
+}
+.addTaskButton{
+  width: 550px;
+  height: 60px;
+  margin: auto;
+}
+.addTaskButton button{
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  border: 2px dashed #f6dbd4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background-color: rgba(35, 35, 35, 0.123);
+  color: #f6dbd4;
 }
