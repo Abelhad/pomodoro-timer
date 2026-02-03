@@ -1,9 +1,38 @@
 import { useState } from "react"
 
+let startDate = new Date();
 const HeroSection = () => {
-  let [minute, setMinute] = useState(25);
-  let [second, setSecond] = useState(0);
+  let [startMin, setStartMins] = useState(startDate.getMinutes());
+  let [startSec, setStartSec] = useState(startDate.getSeconds());
+  console.log("time :", startMin, startSec);
+  let [minuteDisplayed, setMinuteDisplayed] = useState(25);
+  let [secondDisplayed, setSecondDisplayed] = useState(0);
   let [timerState, setTimerState] = useState("Start");
+  let startTimer = ()=>{
+    updateTimer();
+    // let newTime = updateTimer();
+    // console.log(newTime.getMinutes(), newTime.getSeconds());
+  }
+  let updateTimer = ()=>{
+    let currentDate = new Date();
+    let resultSeconds = currentDate.getSeconds() - startDate.getSeconds();
+    console.log(59 - resultSeconds);
+    setSecondDisplayed(prev =>{
+      if(resultSeconds < 60){
+        if(resultSeconds > 50){
+          return "0" + 59 - resultSeconds;
+        }else{
+          return 59 - resultSeconds;
+        }
+      }else{
+        resultSeconds = 0;
+        return resultSeconds;
+      }
+      
+    })
+    // currentDate.setMinutes(20, 59);
+    // return currentDate;
+  }
   return (
     <div className="heroSection">
         <div className="customHeader">
@@ -17,12 +46,12 @@ const HeroSection = () => {
             <button>Long Break</button>
           </div>
           <div className="actualTimer">
-            <h3>{minute}</h3>
+            <h3>{minuteDisplayed}</h3>
             <h3>:</h3>
-            <h3>{second}0</h3>
+            <h3>{secondDisplayed}</h3>
           </div>
           <div className="timerStateButton">
-            <button>{timerState}</button>
+            <button onClick={startTimer}>{timerState}</button>
           </div>
         </div>
         <div className="currentTask">

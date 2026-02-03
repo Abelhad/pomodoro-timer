@@ -144,4 +144,8 @@ body{
   gap: 5px;
   background-color: rgba(35, 35, 35, 0.123);
   color: #f6dbd4;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 16px;
 }
