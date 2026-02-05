@@ -1,35 +1,52 @@
 import { useState } from "react"
 
-let startDate = new Date();
+let startDate = null;
 const HeroSection = () => {
-  let [startMin, setStartMins] = useState(startDate.getMinutes());
-  let [startSec, setStartSec] = useState(startDate.getSeconds());
-  console.log("time :", startMin, startSec);
   let [minuteDisplayed, setMinuteDisplayed] = useState(25);
   let [secondDisplayed, setSecondDisplayed] = useState(0);
   let [timerState, setTimerState] = useState("Start");
-  let startTimer = ()=>{
-    updateTimer();
-    // let newTime = updateTimer();
-    // console.log(newTime.getMinutes(), newTime.getSeconds());
+  let [keepUpdating, setKeepUpdating] = useState(false);
+  let limit = parseTime("59:59");
+
+  function parseTime(s){
+    let secArr = s.split(":");
+    return parseInt(secArr[0]) * 60 + parseInt(secArr[1]);
   }
+
+  function getDiffInSeconds(startTime, endTime){
+    let a = startTime.getMinutes() * 60 + startTime.getSeconds();
+    let b = endTime.getMinutes() * 60 + startTime.getSeconds();
+    if(b < a){
+      return limit - a + b;
+    }else if(b > a){
+      return b - a;
+    }else if(b - a == 0){
+      return 0;
+    }else{
+      alert("invalid data");
+    }
+  }
+
+  function getFinalTimeToDisplay(s){
+    let mins = Math.round(s / 60);
+    let secs = Math.round(s % 60);
+    let finalTime = `${mins}:${secs}`;
+    return finalTime;
+  }
+  
+  let startTimer = ()=>{
+    if(timerState == "Start"){
+      startDate = new Date();
+      setTimerState("Pause");
+    }else{
+      setTimerState("Start");
+    }
+  }
+
   let updateTimer = ()=>{
     let currentDate = new Date();
-    let resultSeconds = currentDate.getSeconds() - startDate.getSeconds();
-    console.log(59 - resultSeconds);
-    setSecondDisplayed(prev =>{
-      if(resultSeconds < 60){
-        if(resultSeconds > 50){
-          return "0" + 59 - resultSeconds;
-        }else{
-          return 59 - resultSeconds;
-        }
-      }else{
-        resultSeconds = 0;
-        return resultSeconds;
-      }
-      
-    })
+    let currentSeconds = currentDate.getMinutes() *60 + currentDate.getSeconds();
+    
     // currentDate.setMinutes(20, 59);
     // return currentDate;
   }
