@@ -1,55 +1,80 @@
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 
 let startDate = null;
 const HeroSection = () => {
   let [minuteDisplayed, setMinuteDisplayed] = useState(25);
-  let [secondDisplayed, setSecondDisplayed] = useState(0);
+  let [secondDisplayed, setSecondDisplayed] = useState(0 + "0");
   let [timerState, setTimerState] = useState("Start");
   let [keepUpdating, setKeepUpdating] = useState(false);
-  let limit = parseTime("59:59");
+  let [timerType, setTimerType] = useState(25);
+  let startTimeRef = useRef(null);
+  let pauseTimeRef = useRef(0);
+  let TimeDuration = timerType * 60;
 
-  function parseTime(s){
-    let secArr = s.split(":");
-    return parseInt(secArr[0]) * 60 + parseInt(secArr[1]);
-  }
-
-  function getDiffInSeconds(startTime, endTime){
-    let a = startTime.getMinutes() * 60 + startTime.getSeconds();
-    let b = endTime.getMinutes() * 60 + startTime.getSeconds();
-    if(b < a){
-      return limit - a + b;
-    }else if(b > a){
-      return b - a;
-    }else if(b - a == 0){
-      return 0;
-    }else{
-      alert("invalid data");
-    }
+  function getDiffInSeconds(){
+    let timePassed = Math.floor((Date.now() - startTimeRef.current) / 1000);
+    return pauseTimeRef.current + timePassed;
   }
 
   function getFinalTimeToDisplay(s){
-    let mins = Math.round(s / 60);
-    let secs = Math.round(s % 60);
+    let mins = Math.floor(s / 60);
+    let secs = Math.floor(s % 60);
     let finalTime = `${mins}:${secs}`;
-    return finalTime;
+    console.log(finalTime);
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   }
   
   let startTimer = ()=>{
     if(timerState == "Start"){
-      startDate = new Date();
+      
+      startTimeRef.current = Date.now();
       setTimerState("Pause");
+      setKeepUpdating(prev => !prev);
     }else{
+      pauseTimeRef.current = getDiffInSeconds();
       setTimerState("Start");
+      setKeepUpdating(prev => !prev);
     }
   }
 
   let updateTimer = ()=>{
-    let currentDate = new Date();
-    let currentSeconds = currentDate.getMinutes() *60 + currentDate.getSeconds();
+    // let currentSeconds = currentDate.getMinutes() *60 + currentDate.getSeconds();
+    let diffInSeconds = getDiffInSeconds();
+    let remaining = TimeDuration - diffInSeconds;
+    let finalTime = getFinalTimeToDisplay(remaining);
+    let finalTimeArr = finalTime.split(":");
+    setMinuteDisplayed(finalTimeArr[0]);
+    setSecondDisplayed(finalTimeArr[1]);
+
+    if(remaining == 0){
+      setKeepUpdating(false);
+      setTimerState("Start");
+      if(timerType == 25){
+        setTimerType(5);
+      }else{
+        setTimerType(25);
+      }
+    }
     
     // currentDate.setMinutes(20, 59);
     // return currentDate;
   }
+
+  useEffect(()=>{
+    let id;
+    if(keepUpdating){
+      id = setInterval(() => {
+        updateTimer();
+        console.log("working");
+      }, 1000);
+    }
+    return () => {
+      if(id){
+        clearInterval(id);
+      }
+    };
+  }, [keepUpdating]);
+
   return (
     <div className="heroSection">
         <div className="customHeader">
