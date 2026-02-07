@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react"
 
-let startDate = null;
 const HeroSection = () => {
   let [minuteDisplayed, setMinuteDisplayed] = useState(25);
   let [secondDisplayed, setSecondDisplayed] = useState(0 + "0");
@@ -10,6 +9,8 @@ const HeroSection = () => {
   let startTimeRef = useRef(null);
   let pauseTimeRef = useRef(0);
   let TimeDuration = timerType * 60;
+  let [backColor, setBackColor] = useState("rgb(175 77 77)");
+  let [fontColor, setFontColor] = useState("rgb(175 77 77)");
 
   function getDiffInSeconds(){
     let timePassed = Math.floor((Date.now() - startTimeRef.current) / 1000);
@@ -75,17 +76,43 @@ const HeroSection = () => {
     };
   }, [keepUpdating]);
 
+  function changeTimer(id){
+    setKeepUpdating(false);
+    setTimerState("Start");
+    startTimeRef.current = null;
+    pauseTimeRef.current = 0;
+    if(id == 1){
+      setMinuteDisplayed(25);
+      setSecondDisplayed("0"+0);
+      setTimerType(25);
+      setBackColor("rgb(175 77 77)");
+      setFontColor("rgb(175 77 77)");
+    }else if(id == 2){
+      setMinuteDisplayed("0"+5);
+      setSecondDisplayed("0"+0);
+      setTimerType(5);
+      setBackColor("rgb(47 124 129)");
+      setFontColor("rgb(47 124 129)");
+    }else{
+      setMinuteDisplayed(15);
+      setSecondDisplayed("0"+0);
+      setTimerType(15);
+      setBackColor("rgb(53 106 146)");
+      setFontColor("rgb(53 106 146)");
+    }
+  }
+
   return (
-    <div className="heroSection">
+    <div className="heroSection" style={{background: backColor}}>
         <div className="customHeader">
             <img src="https://www.tomatotimers.com/assets/images/tomato.svg" alt="" />
         </div>
         <div className="TimeProgress"></div>
         <div className="clock">
           <div className="timerType">
-            <button>Pomodoro</button>
-            <button>Short Break</button>
-            <button>Long Break</button>
+            <button onClick={()=>{changeTimer(1)}} style={{color:fontColor}}>Pomodoro</button>
+            <button onClick={()=>{changeTimer(2)}} style={{color:fontColor}}>Short Break</button>
+            <button onClick={()=>{changeTimer(3)}} style={{color:fontColor}}>Long Break</button>
           </div>
           <div className="actualTimer">
             <h3>{minuteDisplayed}</h3>
@@ -93,7 +120,7 @@ const HeroSection = () => {
             <h3>{secondDisplayed}</h3>
           </div>
           <div className="timerStateButton">
-            <button onClick={startTimer}>{timerState}</button>
+            <button onClick={startTimer} style={{color:fontColor}}>{timerState}</button>
           </div>
         </div>
         <div className="currentTask">
