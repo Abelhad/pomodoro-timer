@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react"
-
+import AddTaskButton from "./AddTaskButton";
+import AddTaskForm from "./AddTaskForm";
 const HeroSection = () => {
   let [minuteDisplayed, setMinuteDisplayed] = useState(25);
   let [secondDisplayed, setSecondDisplayed] = useState(0 + "0");
@@ -11,6 +12,7 @@ const HeroSection = () => {
   let TimeDuration = timerType * 60;
   let [backColor, setBackColor] = useState("rgb(175 77 77)");
   let [fontColor, setFontColor] = useState("rgb(175 77 77)");
+  let [addTaskButtonState, setAddTaskButtonState] = useState(true);
 
   function getDiffInSeconds(){
     let timePassed = Math.floor((Date.now() - startTimeRef.current) / 1000);
@@ -101,6 +103,9 @@ const HeroSection = () => {
       setFontColor("rgb(53 106 146)");
     }
   }
+  function showAddtaskForm(){
+    setAddTaskButtonState(false);
+  }
 
   return (
     <div className="heroSection" style={{background: backColor}}>
@@ -131,9 +136,7 @@ const HeroSection = () => {
           <h3>Tasks</h3>
           <i class="fa-solid fa-list"></i>
         </div>
-        <div className="addTaskButton">
-          <button><i class="fa-solid fa-plus"></i> Add Task</button>
-        </div>
+        { addTaskButtonState ? <AddTaskButton showAddtaskForm={showAddtaskForm}/> : <AddTaskForm /> }
     </div>
   )
 }
