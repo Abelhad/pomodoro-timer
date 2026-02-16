@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef } from "react"
 import AddTaskButton from "./AddTaskButton";
 import AddTaskForm from "./AddTaskForm";
+import Task from "./Task";
+
+let tasks = [];
 const HeroSection = () => {
   let [minuteDisplayed, setMinuteDisplayed] = useState(25);
   let [secondDisplayed, setSecondDisplayed] = useState(0 + "0");
@@ -78,6 +81,12 @@ const HeroSection = () => {
     };
   }, [keepUpdating]);
 
+  const addTaskToArray = async (taskInformations)=>{
+    
+    tasks.push(taskInformations);
+    setAddTaskButtonState(true);
+    console.log(tasks);
+  }
   function changeTimer(id){
     setKeepUpdating(false);
     setTimerState("Start");
@@ -104,7 +113,11 @@ const HeroSection = () => {
     }
   }
   function showAddtaskForm(){
-    setAddTaskButtonState(false);
+    if(addTaskButtonState){
+      setAddTaskButtonState(false);
+    }else{
+      setAddTaskButtonState(true);
+    }
   }
 
   return (
@@ -136,7 +149,10 @@ const HeroSection = () => {
           <h3>Tasks</h3>
           <i class="fa-solid fa-list"></i>
         </div>
-        { addTaskButtonState ? <AddTaskButton showAddtaskForm={showAddtaskForm}/> : <AddTaskForm /> }
+        <div className="allTasks">
+          <Task />
+        </div>
+        { addTaskButtonState ? <AddTaskButton showAddtaskForm={showAddtaskForm}/> : <AddTaskForm finalAddTask={addTaskToArray} hideForm={showAddtaskForm}/> }
     </div>
   )
 }
