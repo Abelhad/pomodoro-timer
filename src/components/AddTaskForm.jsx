@@ -25,7 +25,7 @@ const AddTaskForm = ( {finalAddTask, hideForm} ) => {
             placeholder="What are you working on ?"/>
           <div>
             <label htmlFor="">Est Pomodoros</label>
-            <input type="number" class="num-input" value={estPomodoros} onChange={(e)=>{setEstPomodoros(e.target.value)}}/>
+            <input type="number" class="num-input" value={estPomodoros} onChange={(e)=>{setEstPomodoros(parseInt(e.target.value))}}/>
           </div>
         </div>
         <div className="saveButtonCont">

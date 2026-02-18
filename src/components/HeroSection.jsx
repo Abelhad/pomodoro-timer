@@ -3,8 +3,9 @@ import AddTaskButton from "./AddTaskButton";
 import AddTaskForm from "./AddTaskForm";
 import Task from "./Task";
 
-let tasks = [];
+// let tasks = [];
 const HeroSection = () => {
+  let [tasks, setTasks] = useState(JSON.parse(localStorage.getItem('userTasks')) || []);
   let [minuteDisplayed, setMinuteDisplayed] = useState(25);
   let [secondDisplayed, setSecondDisplayed] = useState(0 + "0");
   let [timerState, setTimerState] = useState("Start");
@@ -82,11 +83,17 @@ const HeroSection = () => {
   }, [keepUpdating]);
 
   const addTaskToArray = async (taskInformations)=>{
-    
-    tasks.push(taskInformations);
+    setTasks(prev =>{
+      let updatedTasks = [...prev, taskInformations];
+      localStorage.setItem('userTasks', JSON.stringify(updatedTasks));
+      return updatedTasks;
+    })
     setAddTaskButtonState(true);
-    console.log(tasks);
   }
+  useEffect(() => {
+    console.log("Tasks updated:", tasks);
+  }, [tasks]);
+
   function changeTimer(id){
     setKeepUpdating(false);
     setTimerState("Start");
