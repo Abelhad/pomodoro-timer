@@ -1,10 +1,10 @@
-const Task = (  ) => {
+const Task = ( {singleTask, removeTask} ) => {
   return (
     <div className="singleTask">
-      <h3>test</h3>
+      <h3> {singleTask.task} </h3>
       <div>
-        <h4>0/1</h4>
-          <i class="fa-solid fa-trash"></i>
+        <h4>0/{singleTask.estPomodoros} </h4>
+          <i onClick={removeTask} class="fa-solid fa-trash"></i>
       </div>
     </div>
   )

@@ -1,12 +1,13 @@
 import { useState } from "react"
 
-const AddTaskForm = ( {finalAddTask, hideForm} ) => {
+const AddTaskForm = ( {finalAddTask, hideForm, id} ) => {
   let [estPomodoros, setEstPomodoros] = useState(1);
   let [task, setTask] = useState("");
   const addTask = (e)=>{
     e.preventDefault();
     
     const taskInfos = {
+      id,
       task,
       estPomodoros
     };

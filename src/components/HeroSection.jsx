@@ -127,6 +127,30 @@ const HeroSection = () => {
     }
   }
 
+  function removeTaskFromArray(id){
+    let newTasks = tasks.filter(t => t.id !== id);
+    setTasks(prev =>{
+      localStorage.setItem('userTasks', JSON.stringify(newTasks));
+      return newTasks;
+    })
+  }
+
+  function getId(id){
+    if(tasks.length == 0){
+      return 0;
+    }else{
+      return tasks[tasks.length - 1].id + 1;
+    }
+    // let updatedIdTasks = [...tasks];
+    // updatedIdTasks.map((t, i) => t.id = i);
+    // return updatedIdTasks[id].id;
+    // if(tasks.length == 0){
+    //   return 0;
+    // }else{
+    //   return tasks.length;
+    // }
+  }
+
   return (
     <div className="heroSection" style={{background: backColor}}>
         <div className="customHeader">
@@ -150,16 +174,18 @@ const HeroSection = () => {
         </div>
         <div className="currentTask">
           <h5>#1</h5>
-          <h4>task name</h4>
+          <h4> {tasks.length > 0 ? tasks[0].task : "no tasks yet"} </h4>
         </div>
         <div className="titlesHeader">
           <h3>Tasks</h3>
           <i class="fa-solid fa-list"></i>
         </div>
         <div className="allTasks">
-          <Task />
+          {tasks.map((eachTask, index) => (
+            <Task key={index} singleTask={eachTask} removeTask={()=> removeTaskFromArray(eachTask.id)}/>
+          ) )}
         </div>
-        { addTaskButtonState ? <AddTaskButton showAddtaskForm={showAddtaskForm}/> : <AddTaskForm finalAddTask={addTaskToArray} hideForm={showAddtaskForm}/> }
+        { addTaskButtonState ? <AddTaskButton showAddtaskForm={showAddtaskForm}/> : <AddTaskForm finalAddTask={addTaskToArray} hideForm={showAddtaskForm} id={getId()}/> }
     </div>
   )
 }
